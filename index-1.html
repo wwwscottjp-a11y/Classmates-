@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102a43">
+<title>JScott Classmates Connector</title>
+<style>
+:root{--navy:#102a43;--blue:#1769aa;--sky:#eaf4ff;--gold:#f4b942;--ink:#183247;--muted:#657b8d;--white:#fff;--line:#e4edf4;--green:#16845b}
+*{box-sizing:border-box}body{margin:0;background:#f3f7fb;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(135deg,#102a43,#1769aa);color:#fff;padding:25px 18px 32px}
+.top{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:800;font-size:19px;letter-spacing:.2px}.badge{font-size:12px;background:#ffffff20;border:1px solid #ffffff45;padding:7px 11px;border-radius:20px}
+.hero{max-width:1050px;margin:28px auto 0}.hero h1{font-size:clamp(27px,5vw,42px);line-height:1.12;margin:0 0 10px}.hero p{margin:0;color:#dbeafa;font-size:15px;max-width:620px}
+main{max-width:1050px;margin:-15px auto 40px;padding:0 15px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat,.panel{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 18px #1832470a}.stat{padding:16px}.stat strong{display:block;font-size:25px;color:var(--blue)}.stat span{font-size:12px;color:var(--muted)}
+.panel{margin-top:16px;padding:18px}.panel h2{font-size:19px;margin:0 0 5px}.sub{font-size:13px;color:var(--muted);margin:0 0 16px}
+.controls{display:flex;gap:10px;flex-wrap:wrap}.controls input,.controls select{flex:1;min-width:145px;padding:12px;border:1px solid #cddbe6;border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+.list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.person{border:1px solid var(--line);border-radius:12px;padding:13px;display:flex;align-items:center;gap:12px}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--sky);color:var(--blue);font-weight:800}.person b{display:block;font-size:14px}.person small{color:var(--muted);font-size:12px}.tag{margin-left:auto;background:#eaf8f1;color:var(--green);font-size:11px;padding:5px 8px;border-radius:20px}
+.notice{padding:12px;background:#fff8e7;border:1px solid #f4e2b5;border-radius:10px;color:#795716;font-size:12px;line-height:1.5;margin-top:14px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media(max-width:600px){.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:21px}.list{grid-template-columns:1fr}.panel{padding:14px}.top{align-items:flex-start}}
+</style>
+</head>
+<body>
+<header>
+ <div class="top"><div class="brand">✦ JSCOTT CLASSMATES</div><div class="badge">CONNECT • SHARE • REUNITE</div></div>
+ <div class="hero"><h1>Karibu kwenye<br>Classmates Connector</h1><p>Mahali pa kuungana tena na wanafunzi wenzako, kutafuta marafiki wa shule na kujenga jumuiya yetu.</p></div>
+</header>
+<main>
+ <section class="stats">
+  <div class="stat"><strong>01</strong><span>Jumuiya moja</span></div>
+  <div class="stat"><strong>24/7</strong><span>Unganisho mtandaoni</span></div>
+  <div class="stat"><strong>JSC</strong><span>Classmates Connector</span></div>
+ </section>
+ <section class="panel">
+  <h2>Wanafunzi wenzetu</h2>
+  <p class="sub">Tafuta kwa jina au darasa. Orodha hii ni mfano wa muonekano wa dashboard.</p>
+  <div class="controls">
+   <input id="search" type="search" placeholder="Tafuta jina..." aria-label="Tafuta jina">
+   <select id="filter" aria-label="Chagua darasa"><option value="">Madarasa yote</option><option>Darasa la 1</option><option>Darasa la 2</option><option>Darasa la 3</option></select>
+  </div>
+  <div class="list" id="list" style="margin-top:14px"></div>
+  <div class="notice"><b>Kumbuka:</b> Majina yanayoonekana hapa ni mifano tu. Dashboard hii bado haijaunganishwa na hifadhidata ya mtandaoni; taarifa halisi za wanafunzi zitaonekana baada ya kuunganisha mfumo wa usajili na database.</div>
+ </section>
+</main>
+<footer>© 2026 JScott Classmates Connector · Toleo la kwanza</footer>
+<script>
+const students=[
+ {name:"Mwanafunzi wa Mfano 1",class:"Darasa la 1",status:"Mfano"},
+ {name:"Mwanafunzi wa Mfano 2",class:"Darasa la 2",status:"Mfano"},
+ {name:"Mwanafunzi wa Mfano 3",class:"Darasa la 3",status:"Mfano"},
+ {name:"Mwanafunzi wa Mfano 4",class:"Darasa la 1",status:"Mfano"}
+];
+const list=document.getElementById('list'),search=document.getElementById('search'),filter=document.getElementById('filter');
+function render(){const q=search.value.toLowerCase(),f=filter.value;const rows=students.filter(s=>s.name.toLowerCase().includes(q)&&(!f||s.class===f));list.innerHTML=rows.length?rows.map(s=>`<div class="person"><div class="avatar">${s.name.slice(-1)}</div><div><b>${s.name}</b><small>${s.class}</small></div><span class="tag">${s.status}</span></div>`).join(''):'<p style="color:#657b8d">Hakuna matokeo yaliyopatikana.</p>'}
+search.addEventListener('input',render);filter.addEventListener('change',render);render();
+</script>
+</body>
+</html>
